@@ -5,6 +5,14 @@ var FormData = require('form-data');
 var multiparty = require('multiparty');
 var util = require('util');
 var fs = require('fs');
+/**
+ * 设置跨域访问
+ */
+function setResponse(res) {
+    res.append('Access-Control-Allow-Headers', 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization');
+    res.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.append('Access-Control-Allow-Origin', '*');
+}
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -12,9 +20,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.options('/', function(req, res, next) {
-    res.append('Access-Control-Allow-Headers', 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization');
-    res.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.append('Access-Control-Allow-Origin', '*');
+    setResponse(res);
     res.json({});
 });
 router.post('/' , function(req, res, next) {
@@ -22,9 +28,7 @@ router.post('/' , function(req, res, next) {
     var reqForm = new multiparty.Form();
     const finalUrl = 'https://s5.ezgif.com/maker';
     reqForm.parse(req, function(err, fields, files) {
-        res.append('Access-Control-Allow-Headers', 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization');
-        res.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        res.append('Access-Control-Allow-Origin', '*');
+        setResponse(res);
         res.writeHead(200, {'content-type': 'application/json'});
         //res.write('received upload:\n\n');
         let arr = [];
@@ -39,10 +43,8 @@ router.post('/' , function(req, res, next) {
         console.log(formData)
         var r = request.post({url: finalUrl, formData: formData}, function (err, response, body) {
             res.end(util.inspect({fields: fields, files: files, headrs: response.headers}));
-            //res.write(response)
         })
     });
-    //:
 });
 
 module.exports = router;

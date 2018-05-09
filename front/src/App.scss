@@ -1,0 +1,42 @@
+$maxWidth: 960px;
+.App {
+    text-align: left;
+    position: relative;
+    .App-logo {
+        animation: App-logo-spin infinite 10s linear;
+        height: 40px;
+        position: absolute;
+        left: 0;
+        top: 5px;
+    }
+    .App-header {
+        color: white;
+        .container {
+            max-width: $maxWidth;
+        }
+        .navbar-header {
+            .navbar-brand {
+                margin-left: 0;
+            }
+        }
+    }
+
+}
+//内容区域
+.content-wrap {
+    padding-top: 60px;
+    max-width: $maxWidth;
+    margin: 0 auto;
+    .App-intro {
+        font-size: large;
+    }
+}
+
+
+
+
+
+@keyframes App-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

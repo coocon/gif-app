@@ -23,7 +23,7 @@ const str = `
 `
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', html: str });
+  res.render('index', { title: 'Express', html: '' });
 });
 
 module.exports = router;
