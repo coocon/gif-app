@@ -1,52 +1,49 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import { Button, Panel, Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import logo from './logo.svg';
-import Upload from './components/Upload';
+import Maker from './modules/Maker';
 import './App.scss';
 
 class App extends Component {
     state = {
 
     }
-    onSelect = (eventKey) => {
-        if (eventKey == '3.1') {
-            location.href = '/';
-        }
-    }
   render() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <Navbar className="navbar-static-top">
-                    <Navbar.Header>
-                        <img src={logo} className="App-logo" alt="logo" />
-                        <Navbar.Brand>
-                            <a href="/">PT大师</a>
-                        </Navbar.Brand>
-                    </Navbar.Header>
-                    <Nav>
-                        <NavItem eventKey={1} href="/">
-                            GIF图片制作
-                        </NavItem>
-                        <NavDropdown onSelect={this.onSelect} eventKey={3} title="菜单" id="basic-nav-dropdown">
-                            <MenuItem eventKey={3.1}>GIF图片制作</MenuItem>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar>
-            </header>
-            <div className="content-wrap">
-                <Panel bsStyle="primary">
-                    <Panel.Heading>
-                        <Panel.Title componentClass="h3">制作GIF动画</Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body>
-                        <Upload />
-                    </Panel.Body>
-                </Panel>
+        <Router>
+            <div className="App">
+                <header className="App-header">
+                    <Navbar className="navbar-static-top">
+                        <Navbar.Header>
+                            <img src={logo} className="App-logo" alt="logo" />
+                            <Navbar.Brand>
+                                <a href="/">PT大师</a>
+                            </Navbar.Brand>
+                        </Navbar.Header>
+                        <Nav>
+                            <NavItem eventKey={1}>
+                                <a to="/">gif图片制作</a>
+                            </NavItem>
+                        </Nav>
+                    </Navbar>
+                </header>
+                <Switch>
+                    <Route path="/" exact component={Maker} />
+                    <Route path="/maker" component={Maker} />
+                    <Route component={NoMatch} />
+                </Switch>
             </div>
-        </div>
+        </Router>
     );
   }
 }
 
+const NoMatch = ({ location }) => (
+  <div>
+    <h3>
+      No match for <code>{location.pathname}</code>
+    </h3>
+  </div>
+);
 export default App;
